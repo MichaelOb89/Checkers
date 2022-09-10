@@ -1,0 +1,74 @@
+body, html{
+    height: 100%;
+    width: 100%;
+}
+/*Board styles*/
+.row8, .row7, .row6, .row5, .row4, .row3, .row2, .row1{
+    display: grid;
+    grid-template-columns: repeat(8, auto);
+}
+
+.board-container{
+    position: absolute;
+    display: grid;
+    grid-template-rows: repeat(8, auto);
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    border: solid hotpink;
+}
+
+.general-container{
+    position: relative;
+    margin: 0 auto;
+    margin-top: 30px;
+    border: solid greenyellow;
+    width: 60%;
+    max-width: 750px;
+}
+
+.general-container::after{
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.dark-square{
+    background-color: darkslategrey;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.light-square{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/*Other styles*/
+h1{
+    text-align: center;
+}
+
+.button-container{
+    text-align: center;
+}
+/*Pieces colors*/
+.black-piece{
+    height: 80%;
+    width: 80%;
+    border-radius: 50%;
+    background-color: black;
+    display: block;
+    margin: auto auto;
+}
+
+.red-piece{
+    height: 80%;
+    width: 80%;
+    border-radius: 50%;
+    background-color: crimson;
+    margin: 0 auto;
+}
+
