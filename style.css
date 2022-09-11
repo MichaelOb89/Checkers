@@ -2,6 +2,7 @@ body, html{
     height: 100%;
     width: 100%;
 }
+
 /*Board styles*/
 .row8, .row7, .row6, .row5, .row4, .row3, .row2, .row1{
     display: grid;
@@ -54,6 +55,7 @@ h1{
 .button-container{
     text-align: center;
 }
+
 /*Pieces colors*/
 .black-piece{
     height: 80%;
