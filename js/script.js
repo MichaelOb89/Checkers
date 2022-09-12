@@ -2,7 +2,8 @@
 const gameBoard = [];
 let row = 0;
 let column = 0;
-
+let selectedPiece = "";
+let targetPosition = "";
 //Cache from DOM
 
 const boardContainer = document.querySelector(".board-container");
@@ -67,10 +68,22 @@ const startGame = (event) => {
 
 }
 
+
+const moveFunction = (event) => {
+    targetPosition = event.target.parentElement.getAttribute("id");
+    if(event.target.classList == ("red-piece")){
+        currentPosition();
+    }
+    if(event.target.classList == "possible-move"){
+        event.target.classList.remove("possible-move");
+        event.target.classList.add("red-piece");
+        domBoard[row][column].classList.remove("red-piece");
+    }
+}
+
 /*This Function assigns the position of the piece clicked to the variables row and column */
 
 const currentPosition = (event) => {
-    let targetPosition = event.target.parentElement.getAttribute("id");
     for(let i=0;i<domBoard.length;i++){
         for(let j=0;j<domBoard[i].length;j++){
             if(domBoard[i][j].parentElement.getAttribute("id") == targetPosition){
@@ -80,15 +93,27 @@ const currentPosition = (event) => {
             }
         }
     }
+    domBoard.forEach(element => {                         //This makes it so when you select a different piece
+        element.forEach(square => {                       //without moving the first, the squares
+            square.classList.remove("possible-move");     //you can move to are reset
+        });
+    });
     legalMoves();
 }
 
 //This code determines which squares the player can move to
 
 const legalMoves = (event) => {
-    //code will decide which squares the player can move to
+    if(domBoard[row][column].getAttribute("class") == "red-piece"){
+        if(domBoard[row+1][column-1].classList == ""){
+            domBoard[row+1][column-1].classList.add("possible-move");
+        }
+        if(domBoard[row+1][column+1].classList == ""){
+            domBoard[row+1][column+1].classList.add("possible-move");
+        }
+    }
 }
 
 //Event Listeners
 startGameBtn.addEventListener("click", startGame);
-boardContainer.addEventListener("click", currentPosition);
+boardContainer.addEventListener("click", moveFunction);

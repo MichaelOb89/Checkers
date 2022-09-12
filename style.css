@@ -74,3 +74,10 @@ h1{
     margin: 0 auto;
 }
 
+.possible-move{
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    z-index: 1;
+    background-color: rgba(173, 254, 173, 0.5);
+}
