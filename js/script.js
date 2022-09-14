@@ -1,13 +1,15 @@
 //Global Variables:
 const startingPosition = [
-    [0,1,0,1,0,1,0,1],
-    [1,0,1,0,1,0,1,0],
-    [0,1,0,1,0,1,0,1],
-    [0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0],
-    [1,0,1,0,1,0,1,0],
-    [0,1,0,1,0,1,0,1],
-    [1,0,1,0,1,0,1,0]
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,1,0,1,0,1,0,1,0],
+    [0,1,0,1,0,1,0,1,0,0],
+    [0,0,1,0,1,0,1,0,1,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,1,0,1,0,1,0,1,0,0],
+    [0,0,1,0,1,0,1,0,1,0],
+    [0,1,0,1,0,1,0,1,0,0],
+    [0,0,0,0,0,0,0,0,0,0]
 ];
 let row = 0;
 let column = 0;
@@ -22,6 +24,7 @@ const startGameBtn = document.getElementById("start-checkers");
 
     /* These variables represent the elements on the DOM in which the pieces will be attached to */
 
+const row0 = document.querySelectorAll(".row0 > .hidden-squares > span");
 const row1 = document.querySelectorAll(".first-row > span");
 const row2 = document.querySelectorAll(".second-row > span");
 const row3 = document.querySelectorAll(".third-row > span");
@@ -30,9 +33,9 @@ const row5 = document.querySelectorAll(".fifth-row > span");
 const row6 = document.querySelectorAll(".sixth-row > span");
 const row7 = document.querySelectorAll(".seventh-row > span");
 const row8 = document.querySelectorAll(".eighth-row > span");
+const row9 = document.querySelectorAll(".row9 > .hidden-squares > span");
 
-
-const domBoard = [row1,row2,row3,row4,row5,row6,row7,row8];
+const domBoard = [row0,row1,row2,row3,row4,row5,row6,row7,row8,row9];
 
 //Unsure if will be necessary to create each checker object
 
@@ -52,7 +55,24 @@ class checker {
                 }
             }
         }
-        possibleMoves();
+        this.possibleMoves();
+    }
+    possibleMoves(){
+        domBoard.forEach(element => {                         //This makes it so when you select a different piece
+            element.forEach(square => {                       //without moving the first, the squares
+                square.classList.remove("possible-move");     //you can move to are reset
+            });
+        });
+        if(selectedPiece.color == "red-piece"){
+            if(domBoard[row+1][column+1].classList == ""){
+                domBoard[row+1][column+1].classList.add("possible-move");
+            } else if (domBoard[row+1][column+1].classList = "black-piece" && domBoard[row+2][column+2].classList == ""){
+                
+            }
+        }
+    }
+    move(){
+
     }
 }
 
@@ -62,9 +82,9 @@ const startGame = (event) => {
     checkers.length = 0;
     for(let i = 0; i < startingPosition.length ;i++){
         for(let j = 0; j < startingPosition[i].length; j++){
-            if(startingPosition[i][j] == 1 && i<3){
+            if(startingPosition[i][j] == 1 && i<4){
                 checkers.push(new checker("red-piece", domBoard[i][j]));
-            } else if(startingPosition[i][j] == 1 && i>4){
+            } else if(startingPosition[i][j] == 1 && i>5){
                 checkers.push(new checker("black-piece", domBoard[i][j]));
             }
         }
@@ -104,77 +124,36 @@ const selectSquare = (event) => {
     }
 }
 
-/*This Function assigns the position of the piece clicked to the variables row and column */
-
-// const currentPosition = (event) => {
-//     for(let i=0;i<domBoard.length;i++){
-//         for(let j=0;j<domBoard[i].length;j++){
-//             if(domBoard[i][j].parentElement.getAttribute("id") == checkerPosition){
-//                 row = i;
-//                 column = j;
-//                 console.log(i, j);
-//             }
-//         }
-//     }
+// const possibleMoves = (event) => {
 //     domBoard.forEach(element => {                         //This makes it so when you select a different piece
 //         element.forEach(square => {                       //without moving the first, the squares
 //             square.classList.remove("possible-move");     //you can move to are reset
 //         });
 //     });
-//     legalMoves();
+//     if(selectedPiece.color == "red-piece"){
+//         if(domBoard[row+1][column+1].classList == ""){
+//             domBoard[row+1][column+1].classList.add("possible-move");
+//         }
+//         if(domBoard[row+1][column-1].classList == ""){
+//             domBoard[row+1][column-1].classList.add("possible-move");
+//         }
+//         if(domBoard[row+1][column+1].classList == "black-piece" && domBoard[row+2][column+2].classList == ""){
+//             domBoard[row+2][column+2].classList.add("possible-move");
+//         }
+//         if(domBoard[row+1][column-1].classList == ""){
+//             domBoard[row+1][column-1].classList.add("possible-move");
+//         }
+//     }
+//     //}
+//     if(selectedPiece.color == "black-piece"){
+//         if(domBoard[row-1][column+1].classList == ""){
+//             domBoard[row-1][column+1].classList.add("possible-move");
+//         }
+//         if(domBoard[row-1][column-1].classList == ""){
+//             domBoard[row-1][column-1].classList.add("possible-move");
+//         }
+//     }
 // }
-
-//This code determines which squares the player can move to
-
-const possibleMoves = (event) => {
-    domBoard.forEach(element => {                         //This makes it so when you select a different piece
-        element.forEach(square => {                       //without moving the first, the squares
-            square.classList.remove("possible-move");     //you can move to are reset
-        });
-    });
-    if(selectedPiece.color == "red-piece"){
-        // if(column == 0){
-        //     if(domBoard[row+1][column+1].classList == ""){
-        //         domBoard[row+1][column+1].classList.add("possible-move");
-        //     }
-        // } else if(column == 7){
-        //     if(domBoard[row+1][column-1].classList == ""){
-        //         domBoard[row+1][column-1].classList.add("possible-move");
-        //     }
-        // } else {
-            if(domBoard[row+1][column+1].classList == ""){
-                domBoard[row+1][column+1].classList.add("possible-move");
-            }
-            if(domBoard[row+1][column-1].classList == ""){
-                domBoard[row+1][column-1].classList.add("possible-move");
-            }
-            if(domBoard[row+1][column+1].classList == "black-piece" && domBoard[row+2][column+2].classList == ""){
-                domBoard[row+2][column+2].classList.add("possible-move");
-            }
-            if(domBoard[row+1][column-1].classList == ""){
-                domBoard[row+1][column-1].classList.add("possible-move");
-            }
-        }
-    //}
-    if(selectedPiece.color == "black-piece"){
-        if(column == 0){
-            if(domBoard[row-1][column+1].classList == ""){
-                domBoard[row-1][column+1].classList.add("possible-move");
-            }
-        } else if(column == 7){
-            if(domBoard[row-1][column-1].classList == ""){
-                domBoard[row-1][column-1].classList.add("possible-move");
-            }
-        } else {
-            if(domBoard[row-1][column+1].classList == ""){
-                domBoard[row-1][column+1].classList.add("possible-move");
-            }
-            if(domBoard[row-1][column-1].classList == ""){
-                domBoard[row-1][column-1].classList.add("possible-move");
-            }
-        }
-    }
-}
 
 //Event Listeners
 startGameBtn.addEventListener("click", startGame);
