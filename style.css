@@ -82,6 +82,14 @@ h1{
     background-color: rgba(173, 254, 173, 0.5);
 }
 
+.possible-capture{
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    z-index: 1;
+    background-color: rgba(173, 254, 173, 0.5);
+}
+
 .row0, .row9, .hidden-squares ,.hidden-squares > span {
     display: none;
 }

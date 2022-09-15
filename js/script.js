@@ -11,11 +11,16 @@ const startingPosition = [
     [0,1,0,1,0,1,0,1,0,0],
     [0,0,0,0,0,0,0,0,0,0]
 ];
+
+let jumpOriginRow = 0;
+let jumpOriginColumn = 0;
 let row = 0;
 let column = 0;
 let selectedPiece = "";
 let checkerPosition = "";
 const checkers = [];
+let canCapture = false;
+let capturedPieceIndex = 0;
 
 //Cache from DOM
 
@@ -55,29 +60,64 @@ class checker {
                 }
             }
         }
-        this.possibleMoves();
+        if(domBoard[row][column].classList=="red-piece"||domBoard[row][column].classList=="black-piece"){
+            this.possibleMoves();
+        }
     }
     possibleMoves(){
         domBoard.forEach(element => {                         //This makes it so when you select a different piece
             element.forEach(square => {                       //without moving the first, the squares
                 square.classList.remove("possible-move");     //you can move to are reset
+                square.classList.remove("possible-capture");
             });
         });
         if(selectedPiece.color == "red-piece"){
             if(domBoard[row+1][column+1].classList == ""){
                 domBoard[row+1][column+1].classList.add("possible-move");
-            } else if (domBoard[row+1][column+1].classList = "black-piece" && domBoard[row+2][column+2].classList == ""){
-                
+            }
+            if(domBoard[row+1][column-1].classList == ""){
+                domBoard[row+1][column-1].classList.add("possible-move");
+            } 
+            if (domBoard[row+1][column+1].classList == "black-piece" && domBoard[row+2][column+2].classList == ""){
+                canCapture = true;
+                jumpOriginColumn = column;
+                jumpOriginRow = row;
+                domBoard[row+2][column+2].classList.add("possible-capture");
+            }
+            if (domBoard[row+1][column-1].classList == "black-piece" && domBoard[row+2][column-2].classList == ""){
+                canCapture = true;
+                jumpOriginColumn = column;
+                jumpOriginRow = row;
+                domBoard[row+2][column-2].classList.add("possible-capture");
+            }
+        }
+        if(selectedPiece.color == "black-piece"){
+            if(domBoard[row-1][column+1].classList == ""){
+                domBoard[row-1][column+1].classList.add("possible-move");
+            }
+            if(domBoard[row-1][column-1].classList == ""){
+                domBoard[row-1][column-1].classList.add("possible-move");
+            } 
+            if (domBoard[row-1][column-1].classList == "red-piece" && domBoard[row-2][column-2].classList == ""){
+                canCapture = true;
+                jumpOriginColumn = column;
+                jumpOriginRow = row;
+                domBoard[row-2][column-2].classList.add("possible-capture");
+            }
+            if (domBoard[row-1][column+1].classList == "red-piece" && domBoard[row-2][column+2].classList == ""){
+                canCapture = true;
+                jumpOriginColumn = column;
+                jumpOriginRow = row;
+                domBoard[row-2][column+2].classList.add("possible-capture");
             }
         }
     }
-    move(){
-
-    }
 }
+
 
 // Functions
 /* This is the function for starting the game. It places all pieces in the correct spots in the startingPosition array and passes this on the dom Board  */
+
 const startGame = (event) => {
     checkers.length = 0;
     for(let i = 0; i < startingPosition.length ;i++){
@@ -104,6 +144,7 @@ const renderBoard = (event) => {
     domBoard.forEach(element => {
         element.forEach(square => {
             square.classList.remove("possible-move");
+            square.classList.remove("possible-capture");
         })
     })
     checkers.forEach(element => {
@@ -116,12 +157,22 @@ const selectSquare = (event) => {
     if(checkers.find(element => element.position.parentElement.getAttribute("id") ==  checkerPosition)){
         selectedPiece = checkers.find(element => element.position.parentElement.getAttribute("id") ==  checkerPosition);
         selectedPiece.retrieveIndexes();
-    }
-    else if(event.target.classList == "possible-move"){
+    } else if(event.target.classList == "possible-move"){
         event.target.classList.remove("possible-move");
         selectedPiece.position = event.target;
         renderBoard();
+    } else if(event.target.classList == "possible-capture"){
+        event.target.classList.remove("possible-capture");
+        selectedPiece.retrieveIndexes();
+        selectedPiece.position = event.target;
+        findCapturedPiece();
+        checkers.splice(capturedPieceIndex, 1);
+        renderBoard();
     }
+}
+
+const findCapturedPiece = (event) =>{
+    capturedPieceIndex =  checkers.findIndex(element => element.position == domBoard[(row+jumpOriginRow)/2][(column+jumpOriginColumn)/2]);
 }
 
 // const possibleMoves = (event) => {
