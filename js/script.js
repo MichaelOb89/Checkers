@@ -72,12 +72,6 @@ class checker {
             });
         });
         if(selectedPiece.color == "red-piece" && !blackTurn){
-            if(domBoard[row+1][column+1].classList == ""){
-                domBoard[row+1][column+1].classList.add("possible-move");
-            }
-            if(domBoard[row+1][column-1].classList == ""){
-                domBoard[row+1][column-1].classList.add("possible-move");
-            } 
             if (domBoard[row+1][column+1].classList == "black-piece" && domBoard[row+2][column+2].classList == ""){
                 canCapture = true;
                 jumpOriginColumn = column;
@@ -89,15 +83,16 @@ class checker {
                 jumpOriginColumn = column;
                 jumpOriginRow = row;
                 domBoard[row+2][column-2].classList.add("possible-capture");
+            }if(!canCapture){
+                if(domBoard[row+1][column+1].classList == ""){
+                    domBoard[row+1][column+1].classList.add("possible-move");
+                }
+                if(domBoard[row+1][column-1].classList == ""){
+                    domBoard[row+1][column-1].classList.add("possible-move");
+                }
             }
         }
-        if(selectedPiece.color == "black-piece" && blackTurn){
-            if(domBoard[row-1][column+1].classList == ""){
-                domBoard[row-1][column+1].classList.add("possible-move");
-            }
-            if(domBoard[row-1][column-1].classList == ""){
-                domBoard[row-1][column-1].classList.add("possible-move");
-            } 
+        if(selectedPiece.color == "black-piece" && blackTurn){           
             if (domBoard[row-1][column-1].classList == "red-piece" && domBoard[row-2][column-2].classList == ""){
                 canCapture = true;
                 jumpOriginColumn = column;
@@ -109,6 +104,14 @@ class checker {
                 jumpOriginColumn = column;
                 jumpOriginRow = row;
                 domBoard[row-2][column+2].classList.add("possible-capture");
+            }
+            if(!canCapture){    
+                if(domBoard[row-1][column+1].classList == ""){
+                    domBoard[row-1][column+1].classList.add("possible-move");
+                }
+                if(domBoard[row-1][column-1].classList == ""){
+                    domBoard[row-1][column-1].classList.add("possible-move");
+                }
             }
         }
     }
@@ -143,18 +146,25 @@ const checkForKings = (element) => {
 }
 
 const checkCapture = (element) => {
-        if(blackTurn && element.color == "black-piece"){
-        checkerPosition = element.position.parentElement.getAttribute("id");
-        selectedPiece = element;
-        element.retrieveIndexes();
-        console.log(canCapture);
+    if(blackTurn && element.color == "black-piece"){
+    checkerPosition = element.position.parentElement.getAttribute("id");
+    selectedPiece = element;
+    element.retrieveIndexes();
+    console.log(canCapture);
+    console.log(selectedPiece);
     }else if(!blackTurn && element.color == "red-piece"){
         checkerPosition = element.position.parentElement.getAttribute("id");
         selectedPiece = element;
         element.retrieveIndexes();
         console.log(canCapture);
+        console.log(selectedPiece);
     }
-    selectedPiece = "";
+    domBoard.forEach(element => {                         //This makes it so when you select a different piece
+        element.forEach(square => {                       //without moving the first, the squares
+            square.classList.remove("possible-move");     //you can move to are reset
+            square.classList.remove("possible-capture");
+        });
+    });
 }
 
 //This function renders the board with current positions of all pieces
@@ -201,12 +211,7 @@ const selectSquare = (event) => {
         if(!canCapture){
             blackTurn = !blackTurn;
         }
-        domBoard.forEach(element => {
-            element.forEach(square => {
-                square.classList.remove("possible-move");
-                square.classList.remove("possible-capture");
-            })
-        });
+        renderBoard();
     }    
 }
 
