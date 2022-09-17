@@ -66,12 +66,31 @@ h1{
     margin: auto auto;
 }
 
+.black-piece.true{
+    height: 80%;
+    width: 80%;
+    border-radius: 50%;
+    background-color: black;
+    display: block;
+    margin: auto auto;
+    box-shadow: 0 0 0 .15em gold;
+}
+
 .red-piece{
     height: 80%;
     width: 80%;
     border-radius: 50%;
     background-color: crimson;
     margin: 0 auto;
+}
+
+.red-piece.true{
+    height: 80%;
+    width: 80%;
+    border-radius: 50%;
+    background-color: crimson;
+    margin: 0 auto;
+    box-shadow: 0 0 0 .15em gold;
 }
 
 .possible-move{

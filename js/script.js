@@ -60,7 +60,7 @@ class checker {
                 }
             }
         }
-        if(domBoard[row][column].classList=="red-piece"||domBoard[row][column].classList=="black-piece"){
+        if(domBoard[row][column].classList[0]=="red-piece"||domBoard[row][column].classList[0]=="black-piece"){
             this.possibleMoves();
         }
     }
@@ -255,6 +255,8 @@ const renderBoard = (event) => {
         element.forEach(cell =>{
             cell.classList.remove("red-piece");
             cell.classList.remove("black-piece");
+            cell.classList.remove("false");
+            cell.classList.remove("true");
         })
     })
     domBoard.forEach(element => {
@@ -265,6 +267,7 @@ const renderBoard = (event) => {
     })
     checkers.forEach(element => {
         element.position.classList.add(element.color);
+        element.position.classList.add(element.isKing);
     })
     checkers.forEach(checkForKings);
     checkers.forEach(checkCapture);
