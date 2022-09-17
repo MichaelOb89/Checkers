@@ -3,10 +3,18 @@ body, html{
     width: 100%;
 }
 
+body{
+    background-color: rgba(39, 245, 228, 0.3);
+}
+
 /*Board styles*/
 .row8, .row7, .row6, .row5, .row4, .row3, .row2, .row1{
     display: grid;
     grid-template-columns: repeat(8, auto);
+}
+
+#turn{
+    text-align: center;
 }
 
 .board-container{
@@ -16,14 +24,13 @@ body, html{
     margin: 0 auto;
     width: 100%;
     height: 100%;
-    border: solid hotpink;
+    border: solid darkslategray;
 }
 
 .general-container{
     position: relative;
     margin: 0 auto;
     margin-top: 30px;
-    border: solid greenyellow;
     width: 60%;
     max-width: 750px;
 }
@@ -45,6 +52,7 @@ body, html{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-color: white;
 }
 
 /*Other styles*/
@@ -111,4 +119,55 @@ h1{
 
 .row0, .row9, .hidden-squares ,.hidden-squares > span {
     display: none;
+}
+
+/* Button style */
+
+#start-checkers {
+  background-color: transparent;
+  border: 1px solid #266DB6;
+  box-sizing: border-box;
+  color: #00132C;
+  font-family: "Avenir Next LT W01 Bold",sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  padding: 16px 23px;
+  position: relative;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+#start-checkers:hover,
+#start-checkers:active {
+  outline: 0;
+}
+
+#start-checkers:hover {
+  background-color: transparent;
+  cursor: pointer;
+}
+
+#start-checkers:before {
+  background-color: #D5EDF6;
+  content: "";
+  height: calc(100% + 3px);
+  position: absolute;
+  right: -7px;
+  top: -9px;
+  transition: background-color 300ms ease-in;
+  width: 100%;
+  z-index: -1;
+}
+
+#start-checkers:hover:before {
+  background-color: #6DCFF6;
+}
+
+@media (min-width: 768px) {
+  #start-checkers {
+    padding: 16px 32px;
+  }
 }

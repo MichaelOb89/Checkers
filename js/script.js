@@ -29,6 +29,7 @@ let possibleRedMoveCounter = 0;
 
 const boardContainer = document.querySelector(".board-container");
 const startGameBtn = document.getElementById("start-checkers");
+const turn = document.getElementById("turn");
 
     /* These variables represent the elements on the DOM in which the pieces will be attached to */
 
@@ -297,6 +298,13 @@ const renderBoard = (event) => {
         element.position.classList.add(element.isKing);
     })
     checkers.forEach(checkCapture);
+    if(blackTurn){
+        turn.textContent = "Black plays next move";
+        turn.style.color = "black";
+    } else{
+        turn.textContent = "Red plays next move";
+        turn.style.color = "crimson";
+    }
     if(blackTurn && possibleBlackMoveCounter == 0){
         alert("Red Wins");
     }
