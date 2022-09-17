@@ -21,6 +21,7 @@ let checkerPosition = "";
 const checkers = [];
 let canCapture = false;
 let capturedPieceIndex = 0;
+let blackTurn = true;
 
 //Cache from DOM
 
@@ -70,7 +71,7 @@ class checker {
                 square.classList.remove("possible-capture");
             });
         });
-        if(selectedPiece.color == "red-piece"){
+        if(selectedPiece.color == "red-piece" && !blackTurn){
             if(domBoard[row+1][column+1].classList == ""){
                 domBoard[row+1][column+1].classList.add("possible-move");
             }
@@ -90,7 +91,7 @@ class checker {
                 domBoard[row+2][column-2].classList.add("possible-capture");
             }
         }
-        if(selectedPiece.color == "black-piece"){
+        if(selectedPiece.color == "black-piece" && blackTurn){
             if(domBoard[row-1][column+1].classList == ""){
                 domBoard[row-1][column+1].classList.add("possible-move");
             }
@@ -141,6 +142,20 @@ const checkForKings = (element) => {
     }
 }
 
+const checkCapture = (element) => {
+        if(blackTurn && element.color == "black-piece"){
+        checkerPosition = element.position.parentElement.getAttribute("id");
+        element.retrieveIndexes();
+        console.log(canCapture);
+        console.log(selectedPiece);
+    }else if(!blackTurn && element.color == "red-piece"){
+        checkerPosition = element.position.parentElement.getAttribute("id");
+        element.retrieveIndexes();
+        console.log(canCapture);
+        console.log(selectedPiece);
+    }
+}
+
 //This function renders the board with current positions of all pieces
 
 const renderBoard = (event) => {
@@ -160,6 +175,7 @@ const renderBoard = (event) => {
         element.position.classList.add(element.color);
     })
     checkers.forEach(checkForKings);
+    //checkers.forEach(checkCapture);
 }
 
 const selectSquare = (event) => {
@@ -170,6 +186,7 @@ const selectSquare = (event) => {
     } else if(event.target.classList == "possible-move"){
         event.target.classList.remove("possible-move");
         selectedPiece.position = event.target;
+        blackTurn = !blackTurn;
         renderBoard();
     } else if(event.target.classList == "possible-capture"){
         event.target.classList.remove("possible-capture");
@@ -177,8 +194,13 @@ const selectSquare = (event) => {
         selectedPiece.position = event.target;
         findCapturedPiece();
         checkers.splice(capturedPieceIndex, 1);
+        canCapture = false;
         renderBoard();
-    }
+        checkCapture(selectedPiece);
+        if(!canCapture){
+            blackTurn = !blackTurn;
+        }
+    }    
 }
 
 const findCapturedPiece = (event) =>{
