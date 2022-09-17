@@ -2,6 +2,7 @@
 
 *Checkers Rules*
 ## Starting the game ##
+* Click the button *Click here to start game* to position the pieces.
 * Each player starts with 12 discs on the dark colored squares of the board
 * Black starts the game and players will alternate turns.
 ## Moving Pieces ##
