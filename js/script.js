@@ -22,6 +22,8 @@ const checkers = [];
 let canCapture = false;
 let capturedPieceIndex = 0;
 let blackTurn = true;
+let possibleBlackMoveCounter = 0;
+let possibleRedMoveCounter = 0;
 
 //Cache from DOM
 
@@ -78,36 +80,44 @@ class checker {
                     jumpOriginColumn = column;
                     jumpOriginRow = row;
                     domBoard[row+2][column+2].classList.add("possible-capture");
+                    possibleRedMoveCounter += 1;
                 }
                 if (domBoard[row+1][column-1].classList[0] ==  "black-piece" && domBoard[row+2][column-2].classList == ""){
                     canCapture = true;
                     jumpOriginColumn = column;
                     jumpOriginRow = row;
                     domBoard[row+2][column-2].classList.add("possible-capture");
+                    possibleRedMoveCounter += 1;
                 }
                 if (domBoard[row-1][column-1].classList[0] == "black-piece" && domBoard[row-2][column-2].classList == ""){
                     canCapture = true;
                     jumpOriginColumn = column;
                     jumpOriginRow = row;
                     domBoard[row-2][column-2].classList.add("possible-capture");
+                    possibleRedMoveCounter += 1;
                 }
                 if (domBoard[row-1][column+1].classList[0] == "black-piece" && domBoard[row-2][column+2].classList == ""){
                     canCapture = true;
                     jumpOriginColumn = column;
                     jumpOriginRow = row;
                     domBoard[row-2][column+2].classList.add("possible-capture");
+                    possibleRedMoveCounter += 1;
                 }if(!canCapture){
                     if(domBoard[row+1][column+1].classList == ""){
                         domBoard[row+1][column+1].classList.add("possible-move");
+                        possibleRedMoveCounter += 1;
                     }
                     if(domBoard[row+1][column-1].classList == ""){
                         domBoard[row+1][column-1].classList.add("possible-move");
+                        possibleRedMoveCounter += 1;
                     }
                     if(domBoard[row-1][column+1].classList == ""){
                         domBoard[row-1][column+1].classList.add("possible-move");
+                        possibleRedMoveCounter += 1;
                     }
                     if(domBoard[row-1][column-1].classList == ""){
                         domBoard[row-1][column-1].classList.add("possible-move");
+                        possibleRedMoveCounter += 1;
                     }
                 }
             }else {
@@ -116,19 +126,23 @@ class checker {
                     jumpOriginColumn = column;
                     jumpOriginRow = row;
                     domBoard[row+2][column+2].classList.add("possible-capture");
+                    possibleRedMoveCounter += 1;
                 }
                 if (domBoard[row+1][column-1].classList[0] == "black-piece" && domBoard[row+2][column-2].classList == ""){
                     canCapture = true;
                     jumpOriginColumn = column;
                     jumpOriginRow = row;
                     domBoard[row+2][column-2].classList.add("possible-capture");
+                    possibleRedMoveCounter += 1;
                 }
                 if(!canCapture){
                     if(domBoard[row+1][column+1].classList == ""){
                         domBoard[row+1][column+1].classList.add("possible-move");
+                        possibleRedMoveCounter += 1;
                     }
                     if(domBoard[row+1][column-1].classList == ""){
                         domBoard[row+1][column-1].classList.add("possible-move");
+                        possibleRedMoveCounter += 1;
                     }
                 }
             }
@@ -140,36 +154,44 @@ class checker {
                     jumpOriginColumn = column;
                     jumpOriginRow = row;
                     domBoard[row-2][column-2].classList.add("possible-capture");
+                    possibleBlackMoveCounter += 1;
                 }
                 if (domBoard[row-1][column+1].classList[0] == "red-piece" && domBoard[row-2][column+2].classList == ""){
                     canCapture = true;
                     jumpOriginColumn = column;
                     jumpOriginRow = row;
                     domBoard[row-2][column+2].classList.add("possible-capture");
+                    possibleBlackMoveCounter += 1;
                 }
                 if (domBoard[row+1][column+1].classList[0] == "red-piece" && domBoard[row+2][column+2].classList == ""){
                     canCapture = true;
                     jumpOriginColumn = column;
                     jumpOriginRow = row;
                     domBoard[row+2][column+2].classList.add("possible-capture");
+                    possibleBlackMoveCounter += 1;
                 }
                 if (domBoard[row+1][column-1].classList[0] == "red-piece" && domBoard[row+2][column-2].classList == ""){
                     canCapture = true;
                     jumpOriginColumn = column;
                     jumpOriginRow = row;
                     domBoard[row+2][column-2].classList.add("possible-capture");
+                    possibleBlackMoveCounter += 1;
                 }if(!canCapture){
                     if(domBoard[row+1][column+1].classList == ""){
                         domBoard[row+1][column+1].classList.add("possible-move");
+                        possibleBlackMoveCounter += 1;
                     }
                     if(domBoard[row+1][column-1].classList == ""){
                         domBoard[row+1][column-1].classList.add("possible-move");
+                        possibleBlackMoveCounter += 1;
                     }
                     if(domBoard[row-1][column+1].classList == ""){
                         domBoard[row-1][column+1].classList.add("possible-move");
+                        possibleBlackMoveCounter += 1;
                     }
                     if(domBoard[row-1][column-1].classList == ""){
                         domBoard[row-1][column-1].classList.add("possible-move");
+                        possibleBlackMoveCounter += 1;
                     }
                 }
             }else{
@@ -178,19 +200,23 @@ class checker {
                     jumpOriginColumn = column;
                     jumpOriginRow = row;
                     domBoard[row-2][column-2].classList.add("possible-capture");
+                    possibleBlackMoveCounter += 1;
                 }
                 if (domBoard[row-1][column+1].classList[0] == "red-piece" && domBoard[row-2][column+2].classList == ""){
                     canCapture = true;
                     jumpOriginColumn = column;
                     jumpOriginRow = row;
                     domBoard[row-2][column+2].classList.add("possible-capture");
+                    possibleBlackMoveCounter += 1;
                 }
                 if(!canCapture){    
                     if(domBoard[row-1][column+1].classList == ""){
                         domBoard[row-1][column+1].classList.add("possible-move");
+                        possibleBlackMoveCounter += 1;
                     }
                     if(domBoard[row-1][column-1].classList == ""){
                         domBoard[row-1][column-1].classList.add("possible-move");
+                        possibleBlackMoveCounter += 1;
                     }
                 }
             }
@@ -231,14 +257,12 @@ const checkCapture = (element) => {
     checkerPosition = element.position.parentElement.getAttribute("id");
     selectedPiece = element;
     element.retrieveIndexes();
-    console.log(canCapture);
-    console.log(selectedPiece);
+    console.log(possibleBlackMoveCounter);
     }else if(!blackTurn && element.color == "red-piece"){
         checkerPosition = element.position.parentElement.getAttribute("id");
         selectedPiece = element;
         element.retrieveIndexes();
-        console.log(canCapture);
-        console.log(selectedPiece);
+        console.log(possibleRedMoveCounter);
     }
     domBoard.forEach(element => {                         //This makes it so when you select a different piece
         element.forEach(square => {                       //without moving the first, the squares
@@ -251,6 +275,8 @@ const checkCapture = (element) => {
 //This function renders the board with current positions of all pieces
 
 const renderBoard = (event) => {
+    possibleBlackMoveCounter = 0;
+    possibleRedMoveCounter = 0;
     domBoard.forEach(element =>{
         element.forEach(cell =>{
             cell.classList.remove("red-piece");
@@ -265,12 +291,18 @@ const renderBoard = (event) => {
             square.classList.remove("possible-capture");
         })
     })
+    checkers.forEach(checkForKings);
     checkers.forEach(element => {
         element.position.classList.add(element.color);
         element.position.classList.add(element.isKing);
     })
-    checkers.forEach(checkForKings);
     checkers.forEach(checkCapture);
+    if(blackTurn && possibleBlackMoveCounter == 0){
+        alert("Red Wins");
+    }
+    if(!blackTurn && possibleRedMoveCounter == 0){
+        alert("Black Wins");
+    }
 }
 
 const selectSquare = (event) => {
