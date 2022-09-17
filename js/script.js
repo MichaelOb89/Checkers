@@ -145,15 +145,16 @@ const checkForKings = (element) => {
 const checkCapture = (element) => {
         if(blackTurn && element.color == "black-piece"){
         checkerPosition = element.position.parentElement.getAttribute("id");
+        selectedPiece = element;
         element.retrieveIndexes();
         console.log(canCapture);
-        console.log(selectedPiece);
     }else if(!blackTurn && element.color == "red-piece"){
         checkerPosition = element.position.parentElement.getAttribute("id");
+        selectedPiece = element;
         element.retrieveIndexes();
         console.log(canCapture);
-        console.log(selectedPiece);
     }
+    selectedPiece = "";
 }
 
 //This function renders the board with current positions of all pieces
@@ -175,7 +176,7 @@ const renderBoard = (event) => {
         element.position.classList.add(element.color);
     })
     checkers.forEach(checkForKings);
-    //checkers.forEach(checkCapture);
+    checkers.forEach(checkCapture);
 }
 
 const selectSquare = (event) => {
@@ -200,6 +201,12 @@ const selectSquare = (event) => {
         if(!canCapture){
             blackTurn = !blackTurn;
         }
+        domBoard.forEach(element => {
+            element.forEach(square => {
+                square.classList.remove("possible-move");
+                square.classList.remove("possible-capture");
+            })
+        });
     }    
 }
 
