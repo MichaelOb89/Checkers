@@ -72,126 +72,45 @@ class checker {
             });
         });
         if(selectedPiece.color == "red-piece" && !blackTurn){
-            if(selectedPiece.isKing == true){
-                if (domBoard[row+1][column+1].classList == "black-piece" && domBoard[row+2][column+2].classList == ""){
-                    canCapture = true;
-                    jumpOriginColumn = column;
-                    jumpOriginRow = row;
-                    domBoard[row+2][column+2].classList.add("possible-capture");
+            if (domBoard[row+1][column+1].classList == "black-piece" && domBoard[row+2][column+2].classList == ""){
+                canCapture = true;
+                jumpOriginColumn = column;
+                jumpOriginRow = row;
+                domBoard[row+2][column+2].classList.add("possible-capture");
+            }
+            if (domBoard[row+1][column-1].classList == "black-piece" && domBoard[row+2][column-2].classList == ""){
+                canCapture = true;
+                jumpOriginColumn = column;
+                jumpOriginRow = row;
+                domBoard[row+2][column-2].classList.add("possible-capture");
+            }if(!canCapture){
+                if(domBoard[row+1][column+1].classList == ""){
+                    domBoard[row+1][column+1].classList.add("possible-move");
                 }
-                if (domBoard[row+1][column-1].classList == "black-piece" && domBoard[row+2][column-2].classList == ""){
-                    canCapture = true;
-                    jumpOriginColumn = column;
-                    jumpOriginRow = row;
-                    domBoard[row+2][column-2].classList.add("possible-capture");
-                }
-                if (domBoard[row-1][column-1].classList == "black-piece" && domBoard[row-2][column-2].classList == ""){
-                    canCapture = true;
-                    jumpOriginColumn = column;
-                    jumpOriginRow = row;
-                    domBoard[row-2][column-2].classList.add("possible-capture");
-                }
-                if (domBoard[row-1][column+1].classList == "black-piece" && domBoard[row-2][column+2].classList == ""){
-                    canCapture = true;
-                    jumpOriginColumn = column;
-                    jumpOriginRow = row;
-                    domBoard[row-2][column+2].classList.add("possible-capture");
-                }if(!canCapture){
-                    if(domBoard[row+1][column+1].classList == ""){
-                        domBoard[row+1][column+1].classList.add("possible-move");
-                    }
-                    if(domBoard[row+1][column-1].classList == ""){
-                        domBoard[row+1][column-1].classList.add("possible-move");
-                    }
-                    if(domBoard[row-1][column+1].classList == ""){
-                        domBoard[row-1][column+1].classList.add("possible-move");
-                    }
-                    if(domBoard[row-1][column-1].classList == ""){
-                        domBoard[row-1][column-1].classList.add("possible-move");
-                    }
-                }
-            }else {
-                if (domBoard[row+1][column+1].classList == "black-piece" && domBoard[row+2][column+2].classList == ""){
-                    canCapture = true;
-                    jumpOriginColumn = column;
-                    jumpOriginRow = row;
-                    domBoard[row+2][column+2].classList.add("possible-capture");
-                }
-                if (domBoard[row+1][column-1].classList == "black-piece" && domBoard[row+2][column-2].classList == ""){
-                    canCapture = true;
-                    jumpOriginColumn = column;
-                    jumpOriginRow = row;
-                    domBoard[row+2][column-2].classList.add("possible-capture");
-                }
-                if(!canCapture){
-                    if(domBoard[row+1][column+1].classList == ""){
-                        domBoard[row+1][column+1].classList.add("possible-move");
-                    }
-                    if(domBoard[row+1][column-1].classList == ""){
-                        domBoard[row+1][column-1].classList.add("possible-move");
-                    }
+                if(domBoard[row+1][column-1].classList == ""){
+                    domBoard[row+1][column-1].classList.add("possible-move");
                 }
             }
         }
-        if(selectedPiece.color == "black-piece" && blackTurn){     
-            if(selectedPiece.isKing == true){
-                if (domBoard[row-1][column-1].classList == "red-piece" && domBoard[row-2][column-2].classList == ""){
-                    canCapture = true;
-                    jumpOriginColumn = column;
-                    jumpOriginRow = row;
-                    domBoard[row-2][column-2].classList.add("possible-capture");
+        if(selectedPiece.color == "black-piece" && blackTurn){           
+            if (domBoard[row-1][column-1].classList == "red-piece" && domBoard[row-2][column-2].classList == ""){
+                canCapture = true;
+                jumpOriginColumn = column;
+                jumpOriginRow = row;
+                domBoard[row-2][column-2].classList.add("possible-capture");
+            }
+            if (domBoard[row-1][column+1].classList == "red-piece" && domBoard[row-2][column+2].classList == ""){
+                canCapture = true;
+                jumpOriginColumn = column;
+                jumpOriginRow = row;
+                domBoard[row-2][column+2].classList.add("possible-capture");
+            }
+            if(!canCapture){    
+                if(domBoard[row-1][column+1].classList == ""){
+                    domBoard[row-1][column+1].classList.add("possible-move");
                 }
-                if (domBoard[row-1][column+1].classList == "red-piece" && domBoard[row-2][column+2].classList == ""){
-                    canCapture = true;
-                    jumpOriginColumn = column;
-                    jumpOriginRow = row;
-                    domBoard[row-2][column+2].classList.add("possible-capture");
-                }
-                if (domBoard[row+1][column+1].classList == "red-piece" && domBoard[row+2][column+2].classList == ""){
-                    canCapture = true;
-                    jumpOriginColumn = column;
-                    jumpOriginRow = row;
-                    domBoard[row+2][column+2].classList.add("possible-capture");
-                }
-                if (domBoard[row+1][column-1].classList == "red-piece" && domBoard[row+2][column-2].classList == ""){
-                    canCapture = true;
-                    jumpOriginColumn = column;
-                    jumpOriginRow = row;
-                    domBoard[row+2][column-2].classList.add("possible-capture");
-                }if(!canCapture){
-                    if(domBoard[row+1][column+1].classList == ""){
-                        domBoard[row+1][column+1].classList.add("possible-move");
-                    }
-                    if(domBoard[row+1][column-1].classList == ""){
-                        domBoard[row+1][column-1].classList.add("possible-move");
-                    }
-                    if(domBoard[row-1][column+1].classList == ""){
-                        domBoard[row-1][column+1].classList.add("possible-move");
-                    }
-                    if(domBoard[row-1][column-1].classList == ""){
-                        domBoard[row-1][column-1].classList.add("possible-move");
-                    }
-                }
-            }else{
-                if (domBoard[row-1][column-1].classList == "red-piece" && domBoard[row-2][column-2].classList == ""){
-                    canCapture = true;
-                    jumpOriginColumn = column;
-                    jumpOriginRow = row;
-                    domBoard[row-2][column-2].classList.add("possible-capture");
-                }
-                if (domBoard[row-1][column+1].classList == "red-piece" && domBoard[row-2][column+2].classList == ""){
-                    canCapture = true;
-                    jumpOriginColumn = column;
-                    jumpOriginRow = row;
-                    domBoard[row-2][column+2].classList.add("possible-capture");
-                }
-                if(!canCapture){    
-                    if(domBoard[row-1][column+1].classList == ""){
-                        domBoard[row-1][column+1].classList.add("possible-move");
-                    }
-                    if(domBoard[row-1][column-1].classList == ""){
-                        domBoard[row-1][column-1].classList.add("possible-move");
-                    }
+                if(domBoard[row-1][column-1].classList == ""){
+                    domBoard[row-1][column-1].classList.add("possible-move");
                 }
             }
         }
@@ -203,7 +122,6 @@ class checker {
 /* This is the function for starting the game. It places all pieces in the correct spots in the startingPosition array and passes this on the dom Board  */
 
 const startGame = (event) => {
-    blackTurn = true;
     checkers.length = 0;
     for(let i = 0; i < startingPosition.length ;i++){
         for(let j = 0; j < startingPosition[i].length; j++){
@@ -266,7 +184,6 @@ const renderBoard = (event) => {
     })
     checkers.forEach(element => {
         element.position.classList.add(element.color);
-        element.position.classList.add(element.isKing);
     })
     checkers.forEach(checkForKings);
     checkers.forEach(checkCapture);
